@@ -21,6 +21,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      result: ${{ steps.check.outputs.result }}
+      version: ${{ steps.get-version.outputs.version }}
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
@@ -32,11 +35,22 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
+    - name: Check commit message
+      id: check
+      run: echo "result=$(echo '${{ github.event.head_commit.message }}' | grep -oP '^Update version to v(\d|\.)+$')" >> $GITHUB_OUTPUT
+      shell: bash
+    - name: Get version
+      id: get-version
+      run: echo "version=$(echo '${{ github.event.head_commit.message }}' | grep -oP 'v(\d|\.)+')" >> $GITHUB_OUTPUT
+      shell: bash
   create-tag:
     runs-on: ubuntu-latest
     needs:
       ["build"]
     steps:
+      - name: set env
+        run: echo "::set-env name=NOW::$(date +'%Y-%m-%dT%H:%M:%S')"
+        shell: bash
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
