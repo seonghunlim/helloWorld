@@ -71,7 +71,7 @@ jobs:
       if: ${{ needs.create-tag.outputs.tag-name != '' }}
       steps:
           - uses: actions/checkout@v3
-          - name: 태그 메시지 생성
+          - name: release 메시지 생성
             id: generate-body
             run: |
               EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
@@ -83,7 +83,7 @@ jobs:
                   echo "$EOF"
               } >> "$GITHUB_OUTPUT"
             shell: bash
-          - name: release 생성정
+          - name: release 생성
             uses: ncipollo/release-action@v1
             with:
                 tag: ${{ needs.create-tag.outputs.tag-name }}
