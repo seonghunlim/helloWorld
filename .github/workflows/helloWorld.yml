@@ -83,11 +83,11 @@ jobs:
                   echo "$EOF"
               } >> "$GITHUB_OUTPUT"
             shell: bash
-          - name: release 생성
+          - name: release 생성정
             uses: ncipollo/release-action@v1
             with:
                 tag: ${{ needs.create-tag.outputs.tag-name }}
                 name: Release ${{ needs.build.outputs.now-date }}
-                body: ${{ steps.generate-body.outputs.release-body }}
+                body: ${{ steps.generate-body.outputs.body }}
                 makeLatest: latest
                 allowUpdates: true
