@@ -24,6 +24,7 @@ jobs:
     outputs:
       result: ${{ steps.check.outputs.result }}
       version: ${{ steps.get-version.outputs.version }}
+      now-date: ${{ steps.date.outputs.now-date }}
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
@@ -40,8 +41,9 @@ jobs:
       run: echo "result=$(echo '${{ github.event.head_commit.message }}' | head -1)" >> $GITHUB_OUTPUT
       shell: bash
     - name: 현재 날짜 확인
-      id: date-now
-      run: echo "date-now=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      id: date
+      run: echo "now-date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      shell: bash
   create-tag:
     runs-on: ubuntu-latest
     needs:
@@ -58,8 +60,7 @@ jobs:
       - uses: rickstaa/action-create-tag@v1
         id: create-tag
         with:
-          tag: RB-${{ needs.build.outputs.date-now }}
-          tag_exists_error: true
+          tag: RB-${{ needs.build.outputs.now-date }}
           force_push_tag: true
   create-release:
       runs-on: ubuntu-latest
@@ -83,5 +84,5 @@ jobs:
             uses: ncipollo/release-action@v1
             with:
                 tag: ${{ needs.build.outputs.tag-name }}
-                name: Release ${{ needs.build.outputs.date-now }}
+                name: Release ${{ needs.build.outputs.now-date }}
                 body: ${{ steps.generate-body.outputs.release-body }}
