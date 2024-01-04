@@ -52,15 +52,15 @@ jobs:
     outputs:
       tag-exists: ${{ steps.create-tag.outputs.tag_exists }}
       tag-name: ${{ steps.create-tag.outputs.tag }}
-      release-body: ${{ steps.generate-body.outputs.body }}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: rickstaa/action-create-tag@v1
         id: create-tag
+        run: echo "tag-name=$(RB-${{ needs.build.outputs.now-date }})" >> $GITHUB_OUTPUT
         with:
-          tag: RB-${{ needs.build.outputs.now-date }}
+          tag: ${{ steps.create-tag.outputs.tag-name }}
           force_push_tag: true
   create-release:
       runs-on: ubuntu-latest
