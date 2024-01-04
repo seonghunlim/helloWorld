@@ -41,7 +41,7 @@ jobs:
       shell: bash
     - name: 현재 날짜 확인
       id: date-now
-      run: echo "::set-output name=date-now::$(date +'%Y-%m-%d')"
+      run: echo "date-now=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
   create-tag:
     runs-on: ubuntu-latest
     needs:
