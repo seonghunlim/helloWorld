@@ -90,3 +90,4 @@ jobs:
                 name: Release ${{ needs.build.outputs.now-date }}
                 body: ${{ steps.generate-body.outputs.release-body }}
                 makeLatest: latest
+                allowUpdates: true
