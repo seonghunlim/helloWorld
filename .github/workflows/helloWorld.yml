@@ -75,7 +75,7 @@ jobs:
                   echo "body<<$EOF"
                   echo "- $git_logs"
                   echo "$EOF"
-              } >>"$GITHUB_OUTPUT"
+              } >> "$GITHUB_OUTPUT"
             shell: bash
           - name: release 생성
             uses: ncipollo/release-action@v1
