@@ -81,6 +81,6 @@ jobs:
           - name: release 생성
             uses: ncipollo/release-action@v1
             with:
-                tag: ${{ needs.build.outputs.date-now }}
-                name: ${{ needs.build.outputs.date-now }}
+                tag: ${{ needs.build.outputs.tag-name }}
+                name: Release ${{ needs.build.outputs.date-now }}
                 body: ${{ steps.generate-body.outputs.release-body }}
