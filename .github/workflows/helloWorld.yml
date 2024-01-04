@@ -60,6 +60,7 @@ jobs:
         with:
           tag: RB-${{ needs.build.outputs.date-now }}
           tag_exists_error: true
+          force_push_tag: true
   create-release:
       runs-on: ubuntu-latest
       needs: ["build","create-tag"]
