@@ -49,6 +49,7 @@ jobs:
     if: ${{ needs.build.outputs.result != '' }}
     outputs:
       tag-exists: ${{ steps.create-tag.outputs.tag_exists }}
+      tag-name: ${{ steps.create-tag.outputs.tag }}
       release-body: ${{ steps.generate-body.outputs.body }}
     steps:
       - uses: actions/checkout@v3
