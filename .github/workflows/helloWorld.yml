@@ -40,9 +40,12 @@ jobs:
       id: check
       run: echo "result=$(echo '${{ github.event.head_commit.message }}' | head -1)" >> $GITHUB_OUTPUT
       shell: bash
+    - uses: szenius/set-timezone@v1.2
+      with:
+        timezoneLinux: "Asia/Seoul"
     - name: 현재 날짜 확인
       id: date
-      run: echo "now-date=$(timedatectl list-timezones | grep Seoul +'%Y.%m.%d')" >> $GITHUB_OUTPUT
+      run: echo "now-date=$(date +'%Y.%m.%d')" >> $GITHUB_OUTPUT
       shell: bash
   create-tag:
     runs-on: ubuntu-latest
