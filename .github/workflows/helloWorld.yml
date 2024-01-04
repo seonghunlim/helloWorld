@@ -61,7 +61,7 @@ jobs:
           tag_exists_error: true
   create-release:
       runs-on: ubuntu-latest
-      needs: ["build", "create-tag"]
+      needs: ["build","create-tag"]
       if: ${{ needs.create-tag.outputs.tag-exists == 'false' }}
       steps:
           - uses: actions/checkout@v3
