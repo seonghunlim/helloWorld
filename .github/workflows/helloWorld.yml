@@ -16,7 +16,7 @@ on:
   - cron: "30 15 * * *"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -37,7 +37,7 @@ jobs:
         arguments: build
     - name: Check commit message
       id: check
-      run: echo "result=$(echo '${{ github.event.head_commit.message }}' | grep -oP '^Update version to v(\d|\.)+$')" >> $GITHUB_OUTPUT
+      run: echo "result=$(echo '${{ github.event.head_commit.message }}' | grep -oP '^Release v(\d|\.)+$')" >> $GITHUB_OUTPUT
       shell: bash
     - name: Get version
       id: get-version
@@ -52,8 +52,6 @@ jobs:
       tag-exists: ${{ steps.create-tag.outputs.tag_exists }}
       release-body: ${{ steps.generate-body.outputs.body }}
     steps:
-##      - name: set env
-##        run: echo "::set-env name=NOW::$(date +'%Y-%m-%dT%H:%M:%S')"
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
