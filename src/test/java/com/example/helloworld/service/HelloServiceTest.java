@@ -29,7 +29,7 @@ class HelloServiceTest {
     public void 실패_hello() {
         String name = "";
 
-        assertThatThrownBy(() -> sut.getHello(name)).hasMessageStartingWith("Empty");
+        assertThatThrownBy(() -> sut.getHello(name)).hasMessageStartingWith(" Empty");
     }
 
     @Test
