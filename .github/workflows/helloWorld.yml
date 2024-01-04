@@ -52,8 +52,8 @@ jobs:
       tag-exists: ${{ steps.create-tag.outputs.tag_exists }}
       release-body: ${{ steps.generate-body.outputs.body }}
     steps:
-#      - name: set env
-#        run: echo "::set-env name=NOW::$(date +'%Y-%m-%dT%H:%M:%S')"
+##      - name: set env
+##        run: echo "::set-env name=NOW::$(date +'%Y-%m-%dT%H:%M:%S')"
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
