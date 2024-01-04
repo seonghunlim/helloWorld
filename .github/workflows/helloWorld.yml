@@ -58,12 +58,12 @@ jobs:
           fetch-depth: 0
       - name: 태그명 생성
         id: create-tag-name
-        run: echo "tag-name=$(RB-${{ needs.build.outputs.now-date }})" >> $GITHUB_OUTPUT
+        run: echo "tag-name=RB-${{ needs.build.outputs.now-date }}" >> $GITHUB_OUTPUT
         shell: bash
       - uses: rickstaa/action-create-tag@v1
         id: create-tag
         with:
-          tag: ${{ steps.create-tag.outputs.tag-name }}
+          tag: ${{ steps.create-tag-name.outputs.tag-name }}
           force_push_tag: true
   create-release:
       runs-on: ubuntu-latest
