@@ -21,7 +21,7 @@ class HelloServiceTest {
 
         String result = sut.getHello(name);
 
-        assertThat(result).startsWithIgnoringCase(" hello");
+        assertThat(result).startsWithIgnoringCase("hello");
         assertThat(result).contains(name);
     }
 
